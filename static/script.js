@@ -1,4 +1,8 @@
 const table = document.querySelector('table');
+const buttonCharge = document.querySelector(".boton");
+const CHARGER = document.querySelector(".charger");
+const RESULT_SECTION = document.querySelector(".results");
+const dataFrameName = document.querySelector(".dataframe-name");
 
 document.getElementById('archivo').addEventListener('change', (event) => {
   const archivo = event.currentTarget.files[0];
@@ -6,8 +10,11 @@ document.getElementById('archivo').addEventListener('change', (event) => {
   if (archivo) {
     const formData = new FormData();
     formData.append('file', archivo);
-
-    fetch('http://127.0.0.1:3000/send-file', {
+    buttonCharge.style.backgroundColor = "grey";
+    buttonCharge.textContent = "cargando...";
+    CHARGER.style.visibility = "visible";
+    //event.currentTarget.disabled = true;
+    fetch('http://127.0.0.1:8000/send-file', {
       method: 'POST',
       body: formData
     })
@@ -17,6 +24,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
         const dataFrame = data.data;
         const columnas = Object.keys(dataFrame);
         const filas = dataFrame[columnas[0]].length;
+        dataFrameName.textContent = data.name;
 
         // Crear encabezado
         let html = '<tr class="titles">';
@@ -36,6 +44,11 @@ document.getElementById('archivo').addEventListener('change', (event) => {
 
         // Insertar en la tabla
         table.innerHTML = html;
+        buttonCharge.style.backgroundColor = "#2563EB";
+        buttonCharge.textContent = "Subir archivo";
+        CHARGER.style.visibility = "hidden";
+        RESULT_SECTION.style.display = "flex";
+        //event.currentTarget.disabled = false;
 
       })
       .catch(err => console.error(err));
