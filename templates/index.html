@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Analizador de datos</title>
+    <link rel="stylesheet" href="static/styles.css">
+</head>
+
+<body>
+    <header>
+        <div>
+            <h1>
+                Data Analyzer
+            </h1>
+            <p>Analiza tus archivos .CSV o .XLSX facilmente.</p>
+        </div>
+
+        <div>
+            <button>Nuevo análisis</button>
+        </div>
+
+    </header>
+
+    <main>
+        <section>
+            <article>
+                <div>
+                    <img src="static/images/subir.png" alt="subir-img" />
+                </div>
+
+                <h2>
+                    Arrastra tu archivo aquí <br>o haz click para subirlo
+                </h2>
+
+                <p>Tus datos se procesaran localmente, no se almacenan.</p>
+                <label for="archivo" class="boton">Subir archivo
+                    <input type="file" id="archivo" style="display:none;">
+                </label>
+
+            </article>
+        </section>
+
+        <section class="results">
+            <div>
+                <h2 class="dataframe-name">dataframe.xlsx</h2>
+
+                <select name="option" id="options">
+                    <option value="" selected disabled>Selecione una opción</option>
+                    <option value="describir">Describir el DataFrame</option>
+                    <option value="mostrar_cabecera">Mostrar primeras filas (head)</option>
+                    <option value="mostrar_final">Mostrar últimas filas (tail)</option>
+                    <option value="ver_columnas">Ver nombres de columnas</option>
+                    <option value="ver_forma">Ver dimensiones (shape)</option>
+                    <option value="ver_tipos">Ver tipos de datos (dtypes)</option>
+                    <option value="media">Calcular media</option>
+                    <option value="mediana">Calcular mediana</option>
+                    <option value="moda">Calcular moda</option>
+                    <option value="correlacion">Ver correlaciones</option>
+                    <option value="valores_nulos">Contar valores nulos</option>
+                </select>
+
+            </div>
+        </section>
+
+        <footer>
+            &copy; 2025 Data Analyzer - Herramienta de análisis de datos.
+        </footer>
+    </main>
+
+</body>
+
+</html>
