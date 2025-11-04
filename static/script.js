@@ -3,6 +3,8 @@ const buttonCharge = document.querySelector(".boton");
 const CHARGER = document.querySelector(".charger");
 const RESULT_SECTION = document.querySelector(".results");
 const dataFrameName = document.querySelector(".dataframe-name");
+let descriptionToShow = null;
+
 
 document.getElementById('archivo').addEventListener('change', (event) => {
   const archivo = event.currentTarget.files[0];
@@ -14,7 +16,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
     buttonCharge.textContent = "cargando...";
     CHARGER.style.visibility = "visible";
     //event.currentTarget.disabled = true;
-    fetch('http://127.0.0.1:5000/send-file', {
+    fetch('http://127.0.0.1:8000/send-file', {
       method: 'POST',
       body: formData
     })
@@ -28,6 +30,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
 
         console.log(dimentions);
         console.log(description);
+        descriptionToShow = description;
 
         // const filas = dataFrame[columnas[0]].length;
 
@@ -66,8 +69,38 @@ document.getElementById('archivo').addEventListener('change', (event) => {
 });
 
 
-document.getElementById('options').addEventListener('change', (event)=>{
-  console.log(event.target.value);
-})
+document.getElementById('options').addEventListener('change', (event) => {
+  const option = event.target.value;
+
+  switch (option) {
+    case 'describir':
+      const resultContainer = document.querySelector('.result');
+      resultContainer.innerHTML = ''; // limpia resultados anteriores
+
+      for (let col in descriptionToShow) {
+        const stats = descriptionToShow[col];
+        resultContainer.innerHTML += `
+      <div class="col-description">
+        <h4>${col}</h4>
+        <div class="statistics">
+          <p><b>count:</b> ${stats.count}</p>
+          <p><b>mean:</b> ${stats.mean}</p>
+          <p><b>std:</b> ${stats.std}</p>
+          <p><b>min:</b> ${stats.min}</p>
+          <p><b>25%:</b> ${stats['25%']}</p>
+          <p><b>50%:</b> ${stats['50%']}</p>
+          <p><b>75%:</b> ${stats['75%']}</p>
+          <p><b>max:</b> ${stats.max}</p>
+        </div>
+      </div>
+    `;
+      }
+      break;
+    // default:
+    //   console.error('error');
+
+  }
+
+});
 
 

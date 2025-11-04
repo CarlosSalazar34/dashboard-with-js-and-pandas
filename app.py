@@ -26,7 +26,7 @@ async def get_file(file: UploadFile = File(...)):
     return {'message': 'success', 
             'data': data_sender,
             "name":file.filename,
-            "description": data[1],
+            "description": data[1].to_dict(),
             "dimentions": data[2]
             }
     # print(len(contents))
@@ -45,4 +45,4 @@ app.add_api_route("/", main, methods=["GET", "POST"])
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app="app:app", host="127.0.0.1", port=5000, reload=True)
+    uvicorn.run(app="app:app", host="127.0.0.1", port=8000, reload=True)
