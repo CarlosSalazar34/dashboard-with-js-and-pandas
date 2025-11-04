@@ -23,7 +23,10 @@ document.getElementById('archivo').addEventListener('change', (event) => {
         // console.log(data);
         const dataFrame = data.data;
         const columnas = Object.keys(dataFrame);
-        const filas = dataFrame[columnas[0]].length;
+        // const filas = dataFrame[columnas[0]].length;
+
+        const filas = 5;
+
         dataFrameName.textContent = data.name;
 
         // Crear encabezado
