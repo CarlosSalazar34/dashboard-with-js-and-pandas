@@ -14,7 +14,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
     buttonCharge.textContent = "cargando...";
     CHARGER.style.visibility = "visible";
     //event.currentTarget.disabled = true;
-    fetch('http://127.0.0.1:8000/send-file', {
+    fetch('http://127.0.0.1:5000/send-file', {
       method: 'POST',
       body: formData
     })
@@ -23,6 +23,12 @@ document.getElementById('archivo').addEventListener('change', (event) => {
         // console.log(data);
         const dataFrame = data.data;
         const columnas = Object.keys(dataFrame);
+        const dimentions = data.dimentions;
+        const description = data.description;
+
+        console.log(dimentions);
+        console.log(description);
+
         // const filas = dataFrame[columnas[0]].length;
 
         const filas = 5;

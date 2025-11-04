@@ -1,6 +1,11 @@
 import pandas as pd
 
-def read_data_frame(dataframe, typeofdf: str):
+def read_data_frame(dataframe, typeofdf: str)->list:
     if typeofdf == "csv":
         df = pd.read_csv(dataframe)
-    return df
+        description = df.describe()
+        dimentions = df.shape
+
+    return [df, description, dimentions]
+
+

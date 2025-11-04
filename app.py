@@ -20,10 +20,15 @@ async def get_file(file: UploadFile = File(...)):
 
     # Convertir el DataFrame a un diccionario compatible con JSON
     data_sender = {}
-    for column in data.columns:
-        data_sender[column] = data[column].tolist()
+    for column in data[0].columns:
+        data_sender[column] = data[0][column].tolist()
 
-    return {'message': 'success', 'data': data_sender, "name":file.filename}
+    return {'message': 'success', 
+            'data': data_sender,
+            "name":file.filename,
+            "description": data[1],
+            "dimentions": data[2]
+            }
     # print(len(contents))
     # return {
     #     "filename": file.filename,
@@ -40,4 +45,4 @@ app.add_api_route("/", main, methods=["GET", "POST"])
 
 if __name__ == "__main__":
     import uvicorn
-    uvicorn.run(app="app:app", host="127.0.0.1", port=8000, reload=True)
+    uvicorn.run(app="app:app", host="127.0.0.1", port=5000, reload=True)
