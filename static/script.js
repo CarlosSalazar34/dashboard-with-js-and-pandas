@@ -66,3 +66,8 @@ document.getElementById('archivo').addEventListener('change', (event) => {
 });
 
 
+document.getElementById('options').addEventListener('change', (event)=>{
+  console.log(event.target.value);
+})
+
+
