@@ -1,9 +1,42 @@
+
+class Table {
+  constructor(args) {
+    this.args = args;
+  }
+
+  update(inicio) {
+
+    const columnas = Object.keys(this.args);
+    const filas = this.args[columnas[0]].length;
+
+    let html = '<tr class="titles">';
+    for (let col of columnas) {
+      html += `<th>${col}</th>`;
+    }
+    html += '</tr>';
+
+    // Crear filas
+    for (let i = inicio; i < filas; i++) {
+      html += '<tr>';
+      for (let col of columnas) {
+        html += `<td>${this.args[col][i]}</td>`;
+      }
+      html += '</tr>';
+    }
+
+    return html;
+
+  }
+}
+
+
 const table = document.querySelector('table');
 const buttonCharge = document.querySelector(".boton");
 const CHARGER = document.querySelector(".charger");
 const RESULT_SECTION = document.querySelector(".results");
 const dataFrameName = document.querySelector(".dataframe-name");
 let descriptionToShow = null;
+let dataFrameToShow = null;
 
 
 document.getElementById('archivo').addEventListener('change', (event) => {
@@ -31,6 +64,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
         console.log(dimentions);
         console.log(description);
         descriptionToShow = description;
+        dataFrameToShow = dataFrame;
 
         // const filas = dataFrame[columnas[0]].length;
 
@@ -55,7 +89,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
         }
 
         // Insertar en la tabla
-        table.innerHTML = html;
+        table.innerHTML += html;
         buttonCharge.style.backgroundColor = "#2563EB";
         buttonCharge.textContent = "Subir archivo";
         CHARGER.style.visibility = "hidden";
@@ -71,17 +105,19 @@ document.getElementById('archivo').addEventListener('change', (event) => {
 
 document.getElementById('options').addEventListener('change', (event) => {
   const option = event.target.value;
+  const resultContainer = document.querySelector('.result');
+  let tailTable = new Table(dataFrameToShow);
+
 
   switch (option) {
     case 'describir':
-      const resultContainer = document.querySelector('.result');
       resultContainer.innerHTML = ''; // limpia resultados anteriores
 
       for (let col in descriptionToShow) {
         const stats = descriptionToShow[col];
         resultContainer.innerHTML += `
       <div class="col-description">
-        <h4>${col}</h4>
+        <h4>${col.trim()}</h4>
         <div class="statistics">
           <p><b>count:</b> ${stats.count}</p>
           <p><b>mean:</b> ${stats.mean}</p>
@@ -96,11 +132,28 @@ document.getElementById('options').addEventListener('change', (event) => {
     `;
       }
       break;
+
+    case "mostrar_cabecera":
+      resultContainer.innerHTML = "";
+      break
+
+    case "mostrar_final":
+      const columnas = Object.keys(dataFrameToShow);
+      const totalFilas = dataFrameToShow[columnas[0]].length;
+      const inicio = Math.max(0, totalFilas - 5);
+      const htmlTail = tailTable.update(inicio);
+      table.innerHTML = "";
+      table.innerHTML += htmlTail;
+      break;
+    //console.log(descriptionToShow)
+
     // default:
     //   console.error('error');
 
   }
 
 });
+
+
 
 

@@ -165,12 +165,45 @@ main section:nth-child(1) article label:active {
     overflow-x: hidden;
 }
 
+.result {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1rem;
+    margin-top: 1rem;
+}
+
+.result .col-description{
+    flex: 1 1 calc(20%);
+    box-sizing: border-box;
+    display: flex;
+    flex-direction: column;
+    border: 1px solid rgba(0, 0, 0, 0.05);
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.05);
+    border-radius: 1rem;
+    padding: 5px;
+}
+
+.col-description h4 {
+    opacity: 50;
+    letter-spacing: .1rem;
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+
+.statistics b{
+    color: #2563EB;
+}
+
+
+
 .results div:nth-child(1) {
     display: flex;
     align-items: center;
     justify-content: space-between;
     padding: 0 1rem 0 1rem;
     flex-wrap: wrap;
+    gap: 1rem;
 }
 
 .results div:nth-child(1) h2 {
