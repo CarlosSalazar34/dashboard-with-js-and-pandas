@@ -4,7 +4,7 @@ class Table {
     this.args = args;
   }
 
-  update(inicio) {
+  update(inicio, final) {
 
     const columnas = Object.keys(this.args);
     const filas = this.args[columnas[0]].length;
@@ -16,7 +16,8 @@ class Table {
     html += '</tr>';
 
     // Crear filas
-    for (let i = inicio; i < filas; i++) {
+    // for (let i = inicio; i < filas; i++) {
+    for (let i = inicio; i < final; i++) {
       html += '<tr>';
       for (let col of columnas) {
         html += `<td>${this.args[col][i]}</td>`;
@@ -107,6 +108,9 @@ document.getElementById('options').addEventListener('change', (event) => {
   const option = event.target.value;
   const resultContainer = document.querySelector('.result');
   let tailTable = new Table(dataFrameToShow);
+  let headTable = new Table(dataFrameToShow);
+  const columnas = Object.keys(dataFrameToShow);
+
 
 
   switch (option) {
@@ -130,18 +134,22 @@ document.getElementById('options').addEventListener('change', (event) => {
         </div>
       </div>
     `;
-      }
-      break;
-
-    case "mostrar_cabecera":
-      resultContainer.innerHTML = "";
-      break
-
+  }
+  table.innerHTML = '';
+  break;
+  
+  case "mostrar_cabecera":
+    resultContainer.innerHTML = "";
+    const htmlHead = headTable.update(0, 5);
+    table.innerHTML = '';
+    table.innerHTML += htmlHead;
+    break
+    
     case "mostrar_final":
-      const columnas = Object.keys(dataFrameToShow);
+      // const columnas = Object.keys(dataFrameToShow);
       const totalFilas = dataFrameToShow[columnas[0]].length;
       const inicio = Math.max(0, totalFilas - 5);
-      const htmlTail = tailTable.update(inicio);
+      const htmlTail = tailTable.update(inicio, totalFilas);
       table.innerHTML = "";
       table.innerHTML += htmlTail;
       break;
