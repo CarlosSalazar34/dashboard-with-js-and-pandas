@@ -151,6 +151,7 @@ document.getElementById('options').addEventListener('change', (event) => {
       const inicio = Math.max(0, totalFilas - 5);
       const htmlTail = tailTable.update(inicio, totalFilas);
       table.innerHTML = "";
+      resultContainer.innerHTML = "";
       table.innerHTML += htmlTail;
       break;
     //console.log(descriptionToShow)
@@ -161,7 +162,6 @@ document.getElementById('options').addEventListener('change', (event) => {
   }
 
 });
-
 
 
 
