@@ -172,7 +172,7 @@ main section:nth-child(1) article label:active {
     margin-top: 1rem;
 }
 
-.result .col-description{
+.result .col-description {
     flex: 1 1 calc(20%);
     box-sizing: border-box;
     display: flex;
@@ -191,7 +191,7 @@ main section:nth-child(1) article label:active {
     font-family: Verdana, Geneva, Tahoma, sans-serif;
 }
 
-.statistics b{
+.statistics b {
     color: #2563EB;
 }
 
@@ -276,8 +276,62 @@ table tr:nth-child(even) {
     background-color: #fafafa;
 }
 
+/* Estilos del Contenedor Principal (La Card) */
+/* .dimension-card {
+    all: revert;
+    display: flex;
+    flex-direction: row;
+    Habilita Flexbox
+    justify-content: space-evenly;
+    Distribuye los ítems
+    align-items: center;
+    Centra verticalmente
 
+    Apariencia
+    width: 100%;
+    Ancho fijo para la demo, ajusta según necesidad
+    padding: 30px;
+    border-radius: 12px;
+    background-color: #f8f9fa;
+    Fondo claro
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    Sombra suave
+    font-family: Arial, sans-serif;
+} */
 
+/* Estilos de cada Ítem (Filas o Columnas) */
+.card-item {
+    display: flex;
+    flex-direction: column;
+    /* Apila el valor y la etiqueta */
+    align-items: center;
+    /* Centra el texto dentro del ítem */
+    text-align: center;
+    /* margin: 1rem; */
+    
+}
+
+/* Estilo para el Número/Valor */
+.card-item .value {
+    font-size: 2.2em;
+    /* Hace el número muy grande */
+    font-weight: 700;
+    /* Negrita */
+    color: #007bff;
+    /* Color principal para destacar */
+    line-height: 1.1;
+}
+
+/* Estilo para la Etiqueta/Descripción */
+.card-item .label {
+    font-size: 0.8em;
+    font-weight: 500;
+    color: #6c757d;
+    /* Color gris para el texto secundario */
+    margin-top: 5px;
+}
+
+/* Estilo para el Separador Visual */
 footer {
     height: 8vh;
     display: flex;

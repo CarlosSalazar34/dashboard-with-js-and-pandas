@@ -38,6 +38,7 @@ const RESULT_SECTION = document.querySelector(".results");
 const dataFrameName = document.querySelector(".dataframe-name");
 let descriptionToShow = null;
 let dataFrameToShow = null;
+let dimentionsToshow = null;
 
 
 document.getElementById('archivo').addEventListener('change', (event) => {
@@ -66,6 +67,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
         console.log(description);
         descriptionToShow = description;
         dataFrameToShow = dataFrame;
+        dimentionsToshow = dimentions;
 
         // const filas = dataFrame[columnas[0]].length;
 
@@ -110,6 +112,7 @@ document.getElementById('options').addEventListener('change', (event) => {
   let tailTable = new Table(dataFrameToShow);
   let headTable = new Table(dataFrameToShow);
   const columnas = Object.keys(dataFrameToShow);
+  const htmlHead = headTable.update(0, 5);
 
 
 
@@ -134,17 +137,17 @@ document.getElementById('options').addEventListener('change', (event) => {
         </div>
       </div>
     `;
-  }
-  table.innerHTML = '';
-  break;
-  
-  case "mostrar_cabecera":
-    resultContainer.innerHTML = "";
-    const htmlHead = headTable.update(0, 5);
-    table.innerHTML = '';
-    table.innerHTML += htmlHead;
-    break
-    
+      }
+      table.innerHTML = '';
+      break;
+
+    case "mostrar_cabecera":
+      resultContainer.innerHTML = "";
+      // const htmlHead = headTable.update(0, 5);
+      table.innerHTML = '';
+      table.innerHTML += htmlHead;
+      break
+
     case "mostrar_final":
       // const columnas = Object.keys(dataFrameToShow);
       const totalFilas = dataFrameToShow[columnas[0]].length;
@@ -154,6 +157,38 @@ document.getElementById('options').addEventListener('change', (event) => {
       resultContainer.innerHTML = "";
       table.innerHTML += htmlTail;
       break;
+
+    case "ver_forma":
+      resultContainer.innerHTML = "";
+      resultContainer.innerHTML += `
+      <div class="dimension-card" style="
+          all: revert;
+          display: flex;
+          flex-direction: row;
+          justify-content: space-evenly;
+          align-items: center;
+
+          width: 100%;
+          padding: 20px;
+          border-radius: 12px;
+          background-color: #f8f9fa;
+          box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+          font-family: Arial, sans-serif;
+          ">
+          <div class="card-item">
+              <span class="value">${dimentionsToshow[0]}</span>
+              <span class="label">Filas (Registros)</span>
+          </div>
+          <div class="card-item">
+              <span class="value">${dimentionsToshow[1]}</span>
+              <span class="label">Columnas (Características)</span>
+          </div>
+      </div>
+
+      `;
+    // resultContainer.innerHTML = "";
+    table.innerHTML = '';
+    table.innerHTML += htmlHead;
     //console.log(descriptionToShow)
 
     // default:
