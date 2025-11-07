@@ -40,6 +40,41 @@ let descriptionToShow = null;
 let dataFrameToShow = null;
 let dimentionsToshow = null;
 
+// === DRAG & DROP FUNCTIONALITY ===
+const dropArea = document.querySelector('section.principal article');
+
+// Evita que el navegador abra el archivo
+['dragenter', 'dragover', 'dragleave', 'drop'].forEach(eventName => {
+  dropArea.addEventListener(eventName, e => {
+    e.preventDefault();
+    e.stopPropagation();
+  });
+});
+
+// Estilos visuales opcionales al arrastrar
+dropArea.addEventListener('dragover', () => {
+  dropArea.classList.add('highlight');
+});
+
+dropArea.addEventListener('dragleave', () => {
+  dropArea.classList.remove('highlight');
+});
+
+dropArea.addEventListener('drop', e => {
+  dropArea.classList.remove('highlight');
+  const files = e.dataTransfer.files;
+  if (files.length) {
+    // Simulamos que el usuario subió el archivo normalmente
+    const inputFile = document.getElementById('archivo');
+    inputFile.files = files;
+
+    // Dispara manualmente el evento 'change' del input
+    const event = new Event('change', { bubbles: true });
+    inputFile.dispatchEvent(event);
+  }
+});
+
+
 
 document.getElementById('archivo').addEventListener('change', (event) => {
   const archivo = event.currentTarget.files[0];
@@ -51,7 +86,7 @@ document.getElementById('archivo').addEventListener('change', (event) => {
     buttonCharge.textContent = "cargando...";
     CHARGER.style.visibility = "visible";
     //event.currentTarget.disabled = true;
-    fetch('http://127.0.0.1:8000/send-file', {
+    fetch('http://127.0.0.1:5000/send-file', {
       method: 'POST',
       body: formData
     })
@@ -186,9 +221,9 @@ document.getElementById('options').addEventListener('change', (event) => {
       </div>
 
       `;
-    // resultContainer.innerHTML = "";
-    table.innerHTML = '';
-    table.innerHTML += htmlHead;
+      // resultContainer.innerHTML = "";
+      table.innerHTML = '';
+      table.innerHTML += htmlHead;
     //console.log(descriptionToShow)
 
     // default:
